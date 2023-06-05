@@ -4,8 +4,8 @@ import config from '../Models/db.js'
 
 export const getAll = async () =>{
     const conn = await sql.connect(config);
-    const result = conn.request().query('SELECT * FROM CentroDonacion')
-    return result;
+    const result = await conn.request().query('SELECT * FROM CentroDonacion')
+    return result.recordsets;
 }
 
 export const Create = async (centroDonacion) =>{
@@ -18,7 +18,9 @@ export const Create = async (centroDonacion) =>{
     .input("pEmail",sql.VarChar,centroDonacion.email)
     .input("pContraseña",sql.VarChar,centroDonacion.contraseña)
     .input("pFkBeneficiarios",sql.Int,centroDonacion.fkBeneficiarios)
-    .query('INSERT INTO CentroDonacion (Nombre,Direccion,Apertura,Cierre,Email,Contraseña,FkBeneficiarios) VALUES (@pNombre, @pDireccion, @pApertura, @pCierre, @pEmail,@pContraseña,@pFkBeneficiarios)');
+    .input("plongitud",sql.Int,centroDonacion.longitud)
+    .input("platitud",sql.Int,centroDonacion.latitud)
+    .query('INSERT INTO CentroDonacion (Nombre,Direccion,Apertura,Cierre,Email,Contraseña,FkBeneficiarios,Longitud,Latitud) VALUES (@pNombre, @pDireccion, @pApertura, @pCierre, @pEmail,@pContraseña,@pFkBeneficiarios,@pLongitud, @pLatitud)');
     return results2;
 }
 
@@ -33,7 +35,9 @@ export const Update = async(IdCentroDonacion,centroDonacion)=>{
     .input("pEmail",sql.VarChar,centroDonacion.email)
     .input("pContraseña",sql.VarChar,centroDonacion.contraseña)
     .input("pFkBeneficiarios",sql.Int,centroDonacion.fkBeneficiarios)
-    .query ('UPDATE CentroDonacion SET Nombre = @pNombre, Direccion = @pDireccion, Apertura = @pApertura, Cierre = @pCierre, Email = @pEmail,Contraseña = @pcontraseña, fkBeneficiarios = @pFkbeneficiarios WHERE IdCentroDonacion = @pIdCentroDonacion')
+    .input("plongitud",sql.Int,centroDonacion.longitud)
+    .input("platitud",sql.Int,centroDonacion.latitud)
+    .query ('UPDATE CentroDonacion SET Nombre = @pNombre, Direccion = @pDireccion, Apertura = @pApertura, Cierre = @pCierre, Email = @pEmail,Contraseña = @pcontraseña, fkBeneficiarios = @pFkbeneficiarios, longitud = @pLongitud, latitud = @pLatitud  WHERE IdCentroDonacion = @pIdCentroDonacion')
     return results3.rowsAffected;
 }
 

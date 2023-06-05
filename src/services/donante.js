@@ -4,8 +4,8 @@ import config from '../Models/db.js'
 
 export const getAll = async () =>{
     const conn = await sql.connect(config);
-    const result = conn.request().query('SELECT * FROM Donante')
-    return result;
+    const result = await conn.request().query('SELECT * FROM Donante')
+    return result.recordsets;
 }
 
 export const Create = async (donante) =>{
@@ -36,14 +36,16 @@ export const Create = async (donante) =>{
     .input ("pPuntos",sql.Int,donante.puntos)
     .input ("pTipoSangre",sql.VarChar,donante.tipoSangre)
     
-    .query('INSERT INTO Donante (Nombre,Apellido,FechaDeNacimiento,DNI,Email,Contraseña,Peso,BuenaSalud,Embarazo,Sexo,FechaDonacion,Medicamentos,HepatitisBC,Parto,Operacion,Antitetanica,UltimoTatuaje,UltimoHierro,LactanciaMaterna,FinMononucleosis,Antipaludicos,ITS,Puntos,TipoSangre) VALUES (@pNombre, @pApellido, @pFechaDeNacimiento, @pDNI, @pEmail,@pContraseña,@pPeso,@pBuenaSalud,@pEmbarazo,@pSexo,@pFechaDonacion,@pMedicamentos,@pHepatitisBC,@pParto,@pOperacion,@pAntitetanica,@pUltimoTatuaje,@pUltimoHierro,@pLactanciaMaterna,@pFinMononucleosis,@pAntipaludicos,@pITS,pPuntos,@pTipoSangre)')
+    .query('INSERT INTO Donante (Nombre,Apellido,FechaDeNacimiento,DNI,Email,Contraseña,Peso,BuenaSalud,Embarazo,Sexo,FechaDonacion,Medicamentos,HepatitisBC,Parto,Operacion,Antitetanica,UltimoTatuaje,UltimoHierro,LactanciaMaterna,FinMononucleosis,Antipaludicos,ITS,Puntos,TipoSangre) VALUES (@pNombre, @pApellido, @pFechaDeNacimiento, @pDNI, @pEmail,@pContraseña,@pPeso,@pBuenaSalud,@pEmbarazo,@pSexo,@pFechaDonacion,@pMedicamentos,@pHepatitisBC,@pParto,@pOperacion,@pAntitetanica,@pUltimoTatuaje,@pUltimoHierro,@pLactanciaMaterna,@pFinMononucleosis,@pAntipaludicos,@pITS,@pPuntos,@pTipoSangre)')
     return results2;
 }
 
-export const Update = async(Id,donante)=>{
+export const Update = async(IdDonante,donante)=>{
+    console.log("1")
     const conn = await sql.connect (config); // para conectar a la base de datos
+    console.log("3")
     const results3 = await conn.request()
-    .input ("pId",sql.Int,Id)
+    .input ("pIdDonante",sql.Int,IdDonante)
     .input ("pNombre",sql.VarChar,donante.nombre)
     .input ("pApellido",sql.VarChar,donante.apellido)
     .input ("pFechaDeNacimiento",sql.Date,donante.fechaDeNacimiento)
@@ -68,22 +70,23 @@ export const Update = async(Id,donante)=>{
     .input ("pITS",sql.Bit,donante.its)
     .input ("pPuntos",sql.Int,donante.puntos)
     .input ("pTipoSangre",sql.VarChar,donante.tipoSangre)
-    .query ('UPDATE Donante SET Nombre = @pNombre, Apellido = @pApellido, FechaDeNacimiento = @pFechaDeNacimiento, DNI = @pDNI, Email = @pEmail, Contraseña = @pContraseña, Peso = @pPeso, BuenaSalud = @pBuenaSalud, Embarazo = @pEmbarazo, Sexo = @pSexo, FechaDonacion = @pFechaDonacion, Medicamentos = @pMedicamentos, HepatitisBC = @pHepatitisBC, Parto = @pParto, Operacion = @pOperacion, Antitetanica = @pAntitetanica, UltimoTatuaje = @pUltimoTatuaje, UltimoHierro = @pUltimoHierro, LactanciaMaterna = @pLactanciaMaterna, FinMononucleosis = @pFinMononucleosis, Antipaludicos = @pAntipaludicos, ITS = @pITS, Puntos = @pPuntos, TipoSangre = @pTipoSangre WHERE Id = @pId')
+    .query ('UPDATE Donante SET Nombre = @pNombre, Apellido = @pApellido, FechaDeNacimiento = @pFechaDeNacimiento, DNI = @pDNI, Email = @pEmail, Contraseña = @pContraseña, Peso = @pPeso, BuenaSalud = @pBuenaSalud, Embarazo = @pEmbarazo, Sexo = @pSexo, FechaDonacion = @pFechaDonacion, Medicamentos = @pMedicamentos, HepatitisBC = @pHepatitisBC, Parto = @pParto, Operacion = @pOperacion, Antitetanica = @pAntitetanica, UltimoTatuaje = @pUltimoTatuaje, UltimoHierro = @pUltimoHierro, LactanciaMaterna = @pLactanciaMaterna, FinMononucleosis = @pFinMononucleosis, Antipaludicos = @pAntipaludicos, ITS = @pITS, Puntos = @pPuntos, TipoSangre = @pTipoSangre WHERE IdDonante = @pIdDonante')
+    console.log("4")
     return results3.rowsAffected;
 }
 
-export const deleteById = async (Id) => {
+export const deleteById = async (IdDonante) => {
     const conn = await sql.connect(config);
     const results5 = await conn.request()
-    .input("pId",sql.Int,Id).query('Delete from Donante where Id = @pId')
+    .input("pIdDonante",sql.Int,IdDonante).query('Delete from Donante where IdDonante = @pIdDonante')
     return results5.rowsAffected; 
 }
 
 
-export const getById = async (Id) => {
+export const getById = async (IdDonante) => {
     const conn = await sql.connect(config);
     const results6 = await conn.request()
-    .input("pId",sql.Int,Id)
-    .query("SELECT *  FROM Donante WHERE Id = @pId") 
+    .input("pIdDonante",sql.Int,IdDonante)
+    .query("SELECT *  FROM Donante WHERE IdDonante = @pIdDonante") 
     return results6.recordsets;  
 }

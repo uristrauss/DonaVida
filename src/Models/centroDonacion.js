@@ -7,6 +7,8 @@ class CentroDonacion{
     email;
     contraseña;
     fkBeneficiarios;
+    longitud;
+    latitud;
     
 }
 export default CentroDonacion;

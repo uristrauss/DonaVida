@@ -4,8 +4,8 @@ import config from '../Models/db.js'
 
 export const getAll = async () =>{
     const conn = await sql.connect(config);
-    const result = conn.request().query('SELECT * FROM Donacion')
-    return result;
+    const result = await conn.request().query('SELECT * FROM Donacion')
+    return result.recordsets;
 }
 
 export const Create = async (donacion) =>{
@@ -15,7 +15,8 @@ export const Create = async (donacion) =>{
     .input ("pFkCentro",sql.Int,donacion.fkCentro)
     .input ("pFkBeneficiario",sql.Int,donacion.fkBeneficiario)
     .input ("pFechaDonacion",sql.Date,donacion.fechaDonacion)
-    .query('INSERT INTO Donacion (FkDonante, FkCentro, FkBeneficiario, FechaDonacion) VALUES (@pFkDonante, @pFkCentro, @pFkBeneficiario, @pFechaDonacion)')
+    .input ("pYaDono",sql.Bit,donacion.yaDono)
+    .query('INSERT INTO Donacion (FkDonante, FkCentro, FkBeneficiario, FechaDonacion, YaDono) VALUES (@pFkDonante, @pFkCentro, @pFkBeneficiario, @pFechaDonacion, @pYaDono)')
     return results2;
 }
 
@@ -27,7 +28,8 @@ export const Update = async(Id,donacion)=>{
     .input ("pFkCentro",sql.Int,donacion.fkCentro)
     .input ("pFkBeneficiario",sql.Int,donacion.fkBeneficiario)
     .input ("pFechaDonacion",sql.Date,donacion.fechaDonacion)
-    .query ('UPDATE Donacion SET FkDonante = @pFkDonante, FkCentro = @pFkCentro, FkBeneficiario = @pFkBeneficiario, FechaDonacion = @pFechaDonacion WHERE Id = @pId')
+    .input ("pYaDono",sql.Bit,donacion.yaDono)
+    .query ('UPDATE Donacion SET FkDonante = @pFkDonante, FkCentro = @pFkCentro, FkBeneficiario = @pFkBeneficiario, FechaDonacion = @pFechaDonacion, YaDono = @pYaDono WHERE Id = @pId')
     return results3.rowsAffected;
 }
 

@@ -14,6 +14,7 @@ router.post ('/',async(req,res)=>{ // por que ponemos router punto
     CalendarioN.fechaDonacion = req.body.FechaDonacion;
     CalendarioN.fkCentro = req.body.FkCentro;
     CalendarioN.fkBeneficiario = req.body.FkBeneficiario;
+    CalendarioN.yaDono = req.body.YaDono;
     const Crear = await Create(CalendarioN);
     return res.status(201).send(Crear); 
 })
@@ -27,6 +28,7 @@ router.put('/:id', async (req, res) =>{
     CalendarioN.fechaDonacion = req.body.FechaDonacion;
     CalendarioN.fkCentro = req.body.FkCentro;
     CalendarioN.fkBeneficiario = req.body.FkBeneficiario;
+    CalendarioN.yaDono = req.body.YaDono;
     const CalendarioModificado = await Update(IdModificado, CalendarioN);
     if (CalendarioModificado == 0) { 
        return res.status(404).send();

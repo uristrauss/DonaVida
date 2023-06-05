@@ -4,8 +4,8 @@ import config from '../Models/db.js'
 
 export const getAll = async () =>{
     const conn = await sql.connect(config);
-    const result = conn.request().query('SELECT * FROM Calendario')
-    return result;
+    const result = await conn.request().query('SELECT * FROM Calendario')
+    return result.recordsets;
 }
 
 export const Create = async (calendario) =>{

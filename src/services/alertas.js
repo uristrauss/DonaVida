@@ -4,8 +4,8 @@ import config from '../Models/db.js'
 
 export const getAll = async () =>{
     const conn = await sql.connect(config);
-    const result = conn.request().query('SELECT * FROM Alertas')
-    return result;
+    const result = await conn.request().query('SELECT * FROM Alertas')
+    return result.recordsets;
 }
 
 export const Create = async (alertas) =>{ // que es eso que le pasamos por parametro y porque en minuscula

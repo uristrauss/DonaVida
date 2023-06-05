@@ -18,6 +18,9 @@ router.post ('/',async(req,res)=>{ // por que ponemos router punto
     CentroDonacionN.email = req.body.Email;
     CentroDonacionN.contraseña = req.body.Contraseña;
     CentroDonacionN.fkBeneficiarios = req.body.FkBeneficiarios;
+    CentroDonacionN.longitud = req.body.Longitud;
+    CentroDonacionN.latitud = req.body.Latitud;
+    CentroDonacionN.yaDono = req.body.YaDono;
     const Crear = await Create(CentroDonacionN);
     return res.status(201).send(Crear); // por que lo ponemos como fuino a una calse?
     
@@ -36,6 +39,9 @@ router.put('/:id', async (req, res) =>{
     CentroDonacionN.email = req.body.Email;
     CentroDonacionN.contraseña = req.body.Contraseña;
     CentroDonacionN.fkBeneficiarios = req.body.FkBeneficiarios;
+    CentroDonacionN.longitud = req.body.Longitud;
+    CentroDonacionN.latitud = req.body.Latitud;
+    CentroDonacionN.yaDono = req.body.YaDono;
     const CentroModificado = await Update(IdModificado, CentroDonacionN);
     if (CentroModificado == 0) {
        return res.status(404).send();
