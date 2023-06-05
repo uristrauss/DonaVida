@@ -35,7 +35,7 @@ router.put('/:id', async (req, res) =>{
     BeneficiarioN.compatibilidad = req.body.Compatibilidad;
     BeneficiarioN.historia = req.body.Historia;
     const BeneficiarioModificado = await Update(IdModificado, BeneficiarioN);
-    if (CentroModificado == 0) {
+    if (BeneficiarioModificado == 0) { 
        return res.status(404).send();
     }
     return res.status(200).send(BeneficiarioModificado);

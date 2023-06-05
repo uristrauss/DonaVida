@@ -24,13 +24,14 @@ export const Create = async (beneficiario) =>{
 export const Update = async(Id,beneficiario)=>{
     const conn = await sql.connect (config); // para conectar a la base de datos
     const results3 = await conn.request()
+    .input ("pId",sql.Int,Id)
     .input ("pTipoSangre",sql.VarChar,beneficiario.tipoSangre)
     .input ("pNombre",sql.VarChar,beneficiario.nombre)
     .input ("pApellido",sql.VarChar,beneficiario.apellido)
     .input ("pCantDonacionesNecesitadas",sql.Int,beneficiario.cantDonacionesNecesitadas)
     .input ("pCompatibilidad",sql.VarChar,beneficiario.compatibilidad)
     .input ("pHistoria",sql.VarChar,beneficiario.historia)
-    .query ('UPDATE Beneficiario SET TipoSangre = @pTipoSangre, Nombre = @pNombre, CantDonacionesNecesitadas = @pCantDonacionesNecesitadas, Compatibilidad = @pCompatibilidad, Historia = @pHistoria WHERE Id = @pId')
+    .query ('UPDATE Beneficiario SET TipoSangre = @pTipoSangre, Nombre = @pNombre, Apellido = @pApellido, CantDonacionesNecesitadas = @pCantDonacionesNecesitadas, Compatibilidad = @pCompatibilidad, Historia = @pHistoria WHERE Id = @pId')
     return results3.rowsAffected;
 }
 
@@ -46,6 +47,6 @@ export const getById = async (Id) => {
     const conn = await sql.connect(config);
     const results6 = await conn.request()
     .input("pId",sql.Int,Id)
-    .query("SELECT *  FROM Beneficiario WHERE Id = @pId") 
+    .query("SELECT * FROM Beneficiario WHERE Id = @pId") 
     return results6.recordsets;  
 }
