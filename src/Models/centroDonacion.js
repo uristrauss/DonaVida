@@ -6,7 +6,6 @@ class CentroDonacion{
     cierre;
     email;
     contraseña;
-    fkBeneficiarios;
     longitud;
     latitud;
     

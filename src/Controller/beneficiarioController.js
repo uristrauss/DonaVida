@@ -11,12 +11,14 @@ router.get('/', async(req,res) =>{
 
 router.post ('/',async(req,res)=>{ // por que ponemos router punto
     const BeneficiarioN = new Beneficiario();
-    BeneficiarioN.tipoSangre = req.body.TipoSangre;
+    BeneficiarioN.grupo = req.body.Grupo;
+    BeneficiarioN.factor = req.body.Factor;
     BeneficiarioN.nombre = req.body.Nombre;
     BeneficiarioN.apellido = req.body.Apellido;
     BeneficiarioN.cantDonacionesNecesitadas = req.body.CantDonacionesNecesitadas;
     BeneficiarioN.compatibilidad = req.body.Compatibilidad;
     BeneficiarioN.historia = req.body.Historia;
+    BeneficiarioN.necesitaSangre = req.body.NecesitaSangre;
     const Crear = await Create(BeneficiarioN);
     return res.status(201).send(Crear); 
 })
@@ -28,12 +30,14 @@ router.put('/:id', async (req, res) =>{
        return res.status(400).send();
     }
     const BeneficiarioN = new Beneficiario();
-    BeneficiarioN.tipoSangre = req.body.TipoSangre;
+    BeneficiarioN.grupo = req.body.Grupo;
+    BeneficiarioN.factor = req.body.Factor;
     BeneficiarioN.nombre = req.body.Nombre;
     BeneficiarioN.apellido = req.body.Apellido;
     BeneficiarioN.cantDonacionesNecesitadas = req.body.CantDonacionesNecesitadas;
     BeneficiarioN.compatibilidad = req.body.Compatibilidad;
     BeneficiarioN.historia = req.body.Historia;
+    BeneficiarioN.necesitaSangre = req.body.NecesitaSangre;
     const BeneficiarioModificado = await Update(IdModificado, BeneficiarioN);
     if (BeneficiarioModificado == 0) { 
        return res.status(404).send();
@@ -58,6 +62,7 @@ router.delete('/:id', async (req, res) =>{
 
 router.get('/:id', async (req,res) =>{ 
     const idElegido = req.params.id;
+    console.log(idElegido)
     const BeneficiarioElegido = await getById(idElegido);
     if (idElegido<1) { 
         return res.status(400);

@@ -1,10 +1,12 @@
 class Beneficiario{
     id;
-    tipoSangre;
     nombre;
     apellido;
     cantDonacionesNecesitadas;
     compatibilidad;
     historia;
+    NecesitaSangre;
+    grupo;
+    factor;
 }
 export default Beneficiario;

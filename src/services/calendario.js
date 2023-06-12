@@ -25,7 +25,7 @@ export const Update = async(Id,calendario)=>{
     .input ("pFechaDonacion",sql.Date,calendario.fechaDonacion)
     .input ("pFkCentro",sql.Int,calendario.fkCentro)
     .input ("pFkBeneficiario",sql.Int,calendario.fkBeneficiario)    
-    .query ('UPDATE Calendario SET FechaDonacion = @pFechaDonacion, fkCentro = @pFkCentro, fkBeneficiario = @pFkBeneficiario WHERE Id = @pId')
+    .query ('UPDATE Calendario SET FechaDonacion = @pFechaDonacion, fkCentro = @pFkCentro, fkBeneficiario = @pFkBeneficiario  WHERE Id = @pId')
     return results3.rowsAffected;
 }
 

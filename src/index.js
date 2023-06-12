@@ -6,14 +6,16 @@ import CalendarioRouter from "./Controller/calendarioController.js";
 import DonacionRouter from "./Controller/donacionController.js";
 import DonanteRouter from "./Controller/donanteController.js";
 import RecompensaRouter from "./Controller/recompensasController.js";
+import cors from "cors"
 
 
 
 const app = express();
-const port = 3000;
+const port = 5000;
 
 
 app.use(express.json());
+app.use(cors());
 
 
 app.use("/centro", CentroRouter);

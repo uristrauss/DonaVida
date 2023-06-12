@@ -4,5 +4,6 @@ class Donacion{
     fkCentro;
     fkBeneficiario;
     fechaDonacion;
+    yadono;
 }
 export default Donacion;

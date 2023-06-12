@@ -17,10 +17,9 @@ export const Create = async (centroDonacion) =>{
     .input ("pCierre",sql.Time,centroDonacion.cierre)
     .input("pEmail",sql.VarChar,centroDonacion.email)
     .input("pContraseña",sql.VarChar,centroDonacion.contraseña)
-    .input("pFkBeneficiarios",sql.Int,centroDonacion.fkBeneficiarios)
     .input("plongitud",sql.Int,centroDonacion.longitud)
     .input("platitud",sql.Int,centroDonacion.latitud)
-    .query('INSERT INTO CentroDonacion (Nombre,Direccion,Apertura,Cierre,Email,Contraseña,FkBeneficiarios,Longitud,Latitud) VALUES (@pNombre, @pDireccion, @pApertura, @pCierre, @pEmail,@pContraseña,@pFkBeneficiarios,@pLongitud, @pLatitud)');
+    .query('INSERT INTO CentroDonacion (Nombre,Direccion,Apertura,Cierre,Email,Contraseña,Longitud,Latitud) VALUES (@pNombre, @pDireccion, @pApertura, @pCierre, @pEmail,@pContraseña,@pLongitud, @pLatitud)');
     return results2;
 }
 
@@ -34,10 +33,9 @@ export const Update = async(IdCentroDonacion,centroDonacion)=>{
     .input ("pCierre",sql.Time,centroDonacion.cierre)
     .input("pEmail",sql.VarChar,centroDonacion.email)
     .input("pContraseña",sql.VarChar,centroDonacion.contraseña)
-    .input("pFkBeneficiarios",sql.Int,centroDonacion.fkBeneficiarios)
     .input("plongitud",sql.Int,centroDonacion.longitud)
     .input("platitud",sql.Int,centroDonacion.latitud)
-    .query ('UPDATE CentroDonacion SET Nombre = @pNombre, Direccion = @pDireccion, Apertura = @pApertura, Cierre = @pCierre, Email = @pEmail,Contraseña = @pcontraseña, fkBeneficiarios = @pFkbeneficiarios, longitud = @pLongitud, latitud = @pLatitud  WHERE IdCentroDonacion = @pIdCentroDonacion')
+    .query ('UPDATE CentroDonacion SET Nombre = @pNombre, Direccion = @pDireccion, Apertura = @pApertura, Cierre = @pCierre, Email = @pEmail,Contraseña = @pcontraseña, longitud = @pLongitud, latitud = @pLatitud  WHERE IdCentroDonacion = @pIdCentroDonacion')
     return results3.rowsAffected;
 }
 
@@ -53,6 +51,6 @@ export const getById = async (IdCentroDonacion) => {
     const conn = await sql.connect(config);
     const results6 = await conn.request()
     .input("pIdCentroDonacion",sql.Int,IdCentroDonacion)
-    .query("SELECT CentroDonacion.IdCentroDonacion, CentroDonacion.Nombre, CentroDonacion.Direccion, CentroDonacion.Apertura, CentroDonacion.Cierre, CentroDonacion.Email, CentroDonacion.Contraseña, CentroDonacion.FkBeneficiarios  FROM CentroDonacion INNER JOIN Beneficiario On CentroDonacion.FkBeneficiarios = Beneficiario.Id WHERE IdCentroDonacion = @pIdCentroDonacion") 
+    .query("SELECT CentroDonacion.IdCentroDonacion, CentroDonacion.Nombre, CentroDonacion.Direccion, CentroDonacion.Apertura, CentroDonacion.Cierre, CentroDonacion.Email, CentroDonacion.Contraseña, CentroDonacion.Longitud,CentroDonacion.Latitud FROM CentroDonacion WHERE IdCentroDonacion = @pIdCentroDonacion") 
     return results6.recordsets;  
 }
