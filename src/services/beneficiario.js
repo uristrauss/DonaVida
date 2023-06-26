@@ -21,7 +21,8 @@ export const Create = async (beneficiario) =>{
     .input ("pGrupo",sql.VarChar,beneficiario.grupo)
     .input ("pFactor",sql.VarChar,beneficiario.factor)
     .input ("pFkCentro",sql.VarChar,beneficiario.fkCentro)
-    .query('INSERT INTO Beneficiario (Nombre,Apellido,CantDonacionesNecesitadas,Compatibilidad,Historia,Grupo,Factor,FkCentro) VALUES (@pNombre, @pApellido, @pCantDonacionesNecesitadas, @pCompatibilidad,@pHistoria, @pGrupo, @pFactor, @pFkCentro)');
+    .input ("pImagen",sql.VarChar,beneficiario.imagen)
+    .query('INSERT INTO Beneficiario (Nombre,Apellido,CantDonacionesNecesitadas,Compatibilidad,Historia,Grupo,Factor,FkCentro, Imagen) VALUES (@pNombre, @pApellido, @pCantDonacionesNecesitadas, @pCompatibilidad,@pHistoria, @pGrupo, @pFactor, @pFkCentro, @pImagen)');
     return results2;
 }
 
@@ -38,7 +39,8 @@ export const Update = async(Id,beneficiario)=>{
     .input ("pGrupo",sql.VarChar,beneficiario.grupo)
     .input ("pFactor",sql.VarChar,beneficiario.factor)
     .input ("pFkCentro",sql.VarChar,beneficiario.fkCentro)
-    .query ('UPDATE Beneficiario SET Nombre = @pNombre, Apellido = @pApellido, CantDonacionesNecesitadas = @pCantDonacionesNecesitadas, Compatibilidad = @pCompatibilidad, Historia = @pHistoria, NecesitaSangre = @pNecesitaSangre, Grupo = @pGrupo, Factor = @pFactor, FkCentro = @pFkCentro WHERE Id = @pId')
+    .input ("pImagen",sql.VarChar,beneficiario.imagen)
+    .query ('UPDATE Beneficiario SET Nombre = @pNombre, Apellido = @pApellido, CantDonacionesNecesitadas = @pCantDonacionesNecesitadas, Compatibilidad = @pCompatibilidad, Historia = @pHistoria, NecesitaSangre = @pNecesitaSangre, Grupo = @pGrupo, Factor = @pFactor, FkCentro = @pFkCentro, Imagen = @pImagen WHERE Id = @pId')
     return results3.rowsAffected;
 }
 

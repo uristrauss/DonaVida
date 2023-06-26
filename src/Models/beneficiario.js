@@ -8,5 +8,6 @@ class Beneficiario{
     NecesitaSangre;
     grupo;
     factor;
+    imagen;
 }
 export default Beneficiario;

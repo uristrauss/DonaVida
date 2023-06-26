@@ -19,6 +19,7 @@ router.post ('/',async(req,res)=>{ // por que ponemos router punto
     BeneficiarioN.compatibilidad = req.body.Compatibilidad;
     BeneficiarioN.historia = req.body.Historia;
     BeneficiarioN.necesitaSangre = req.body.NecesitaSangre;
+    BeneficiarioN.imagen = req.body.Imagen;
     const Crear = await Create(BeneficiarioN);
     return res.status(201).send(Crear); 
 })
@@ -38,6 +39,7 @@ router.put('/:id', async (req, res) =>{
     BeneficiarioN.compatibilidad = req.body.Compatibilidad;
     BeneficiarioN.historia = req.body.Historia;
     BeneficiarioN.necesitaSangre = req.body.NecesitaSangre;
+    BeneficiarioN.imagen = req.body.Imagen;
     const BeneficiarioModificado = await Update(IdModificado, BeneficiarioN);
     if (BeneficiarioModificado == 0) { 
        return res.status(404).send();
