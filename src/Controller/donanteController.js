@@ -1,7 +1,7 @@
 import { Router } from "express";
 import express from "express";
 import Donante from '../Models/donante.js'
-import {getAll,Create,Update,deleteById,getById} from "../services/donante.js";
+import {getAll,Create,Update,deleteById,getById, loginDonante} from "../services/donante.js";
 const router = Router();
 
 router.get('/', async(req,res) =>{
@@ -101,6 +101,26 @@ router.get('/:id', async (req,res) =>{
     }
     return res.status(200).send(DonanteElegido);
 })
+
+router.post('/login', async (req, res) => {
+    const { email, contraseña } = req.body;
+  
+    try {
+      const result = await loginDonante(email, contraseña);
+      const count = result[0][0].Count;
+  
+      if (count === 1) {
+        // Successful login
+        res.status(200).json({ message: 'Login successful' });
+      } else {
+        // Invalid credentials
+        res.status(401).json({ message: 'Invalid email or password' });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  })
 
 
 export default router;

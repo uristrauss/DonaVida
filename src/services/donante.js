@@ -90,3 +90,14 @@ export const getById = async (IdDonante) => {
     .query("SELECT *  FROM Donante WHERE IdDonante = @pIdDonante") 
     return results6.recordsets;  
 }
+
+export const loginDonante = async (email, contraseña) => {
+    const conn = await sql.connect(config);
+    const result = await conn
+      .request()
+      .input('pEmail', sql.VarChar, email)
+      .input('pContraseña', sql.VarChar, contraseña)
+      .query('SELECT COUNT(*) AS Count FROM Donante WHERE Email = @pEmail AND Contraseña = @pContraseña');
+    return result.recordsets;
+  };
+  
