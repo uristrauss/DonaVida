@@ -12,7 +12,8 @@ export const Create = async (alertas) =>{ // que es eso que le pasamos por param
     const conn = await  sql.connect(config);// para conectar a la base de datos
     const results2 = await conn.request() // para guardar el resultado 
     .input ("pFecha",sql.Date,alertas.fecha)
-    .query('INSERT INTO Alertas (Fecha) VALUES (@pFecha)');
+    .input ("pFkDonante",sql.Date,alertas.fkDonante)
+    .query('INSERT INTO Alertas (Fecha, FkDonante) VALUES (@pFecha, @pFkDonante)');
     return results2;
 }
 
@@ -21,7 +22,8 @@ export const Update = async(Id,alertas)=>{
     const results3 = await conn.request()
     .input ("pId",sql.Int,Id)
     .input ("pFecha",sql.Date,alertas.fecha)
-    .query ('UPDATE Alertas SET Fecha = @pFecha WHERE Id = @pId')
+    .input ("pFkDonante",sql.Date,alertas.fkDonante)
+    .query('INSERT INTO Alertas (Fecha, FkDonante) VALUES (@pFecha, @pFkDonante)');
     return results3.rowsAffected; // porque usamos rows affected
 }
 

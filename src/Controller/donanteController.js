@@ -103,23 +103,16 @@ router.get('/:id', async (req,res) =>{
 })
 
 router.post('/login', async (req, res) => {
-    const { email, contraseña } = req.body;
+  const Email = req.body.Email;
+  const Contraseña = req.body.Contraseña;
+      const result = await loginDonante(Email, Contraseña);
   
-    try {
-      const result = await loginDonante(email, contraseña);
-      const count = result[0][0].Count;
-  
-      if (count === 1) {
-        // Successful login
-        res.status(200).json({ message: 'Login successful' });
+      if (result === 1) {
+        res.status(200).json({ message: 'Se ha hecho el login' });
       } else {
-        // Invalid credentials
-        res.status(401).json({ message: 'Invalid email or password' });
+        res.status(401).json({ message: 'No se pudo hacer login' });
       }
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Internal server error' });
-    }
+    
   })
 
 
